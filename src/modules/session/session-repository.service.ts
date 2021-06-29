@@ -43,6 +43,15 @@ export class SessionRepositoryService {
     return client.query(query);
   }
 
+  async searchCarSession(id: string, start: string, end: string) {
+    const query = {
+      text: `SELECT * FROM sessions WHERE car_id = $1 AND start_date::date >= $2 AND end_date::date <= $3`,
+      values: [ id, start, end ],
+    };
+
+    return client.query(query);
+  }
+
   async update(sessionId, status) {
     const query = {
       text: `UPDATE sessions SET status = $1 WHERE id = $2`,

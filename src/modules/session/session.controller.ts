@@ -3,7 +3,6 @@ import { ApiBody, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { CreateSessionDto } from './dto/create-session.dto';
 import { SessionDto } from './dto/session.dto';
 import { SessionService } from './session.service';
-import { createDeflateRaw } from 'zlib';
 import { ValidationPipe } from './pipes/validation.pipe';
 
 @ApiTags('SessionController')
