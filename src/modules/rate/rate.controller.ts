@@ -1,7 +1,8 @@
 import { Body, Controller, Get, Param, Post } from '@nestjs/common';
-import { ApiResponse, ApiTags } from '@nestjs/swagger';
+import { ApiBody, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { RateDto } from './dto/rate.dto';
 import { RateService } from './rate.service';
+import { CheckPriceDto } from './dto/check-price.dto';
 
 @ApiTags('RateController')
 @Controller('rate')
@@ -22,8 +23,9 @@ export class RateController {
   }
 
   @Post('price')
+  @ApiBody({type: CheckPriceDto})
   @ApiResponse({ type: Number, status: 200 })
-  checkPrice(@Body('options') options) {
-
+  async checkPrice(@Body() options: CheckPriceDto) {
+    return await this.rateService.checkPrice(options);
   }
 }
