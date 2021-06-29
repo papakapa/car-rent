@@ -4,6 +4,7 @@ import { CreateSessionDto } from './dto/create-session.dto';
 import { SessionDto } from './dto/session.dto';
 import { SessionService } from './session.service';
 import { createDeflateRaw } from 'zlib';
+import { ValidationPipe } from './pipes/validation.pipe';
 
 @ApiTags('SessionController')
 @Controller('session')
@@ -23,19 +24,19 @@ export class SessionController {
     return await this.sessionService.getById(id);
   }
 
-  @Post('create')
+  @Post(':id/start')
+  async startSession(@Param('id') id: string) {
+    return await this.sessionService.startSession(id);
+  }
+
+  @Post(':id/finish')
+  async finishSession(@Param('id') id: string) {
+    return await this.sessionService.endSession(id);
+  }
+
+  @Post('book')
   @ApiBody({ type: CreateSessionDto })
-  createSession(@Body('data') data: CreateSessionDto) {
-
-  }
-
-  @Post('start')
-  startSession(@Body('data') data) {
-
-  }
-
-  @Post('finish')
-  finishSession(@Body('data') data) {
-
+  async createSession(@Body(new ValidationPipe()) data: CreateSessionDto) {
+    return await this.sessionService.createSession(data);
   }
 }
