@@ -1,19 +1,25 @@
 import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import { ApiResponse, ApiTags } from '@nestjs/swagger';
+import { RateDto } from './dto/rate.dto';
 
+@ApiTags('RateController')
 @Controller('rate')
 export class RateController {
   @Get('/')
+  @ApiResponse({ type: [ RateDto ], status: 200 })
   getAll() {
 
   }
 
   @Get(':id')
-  getById(@Param() param) {
+  @ApiResponse({ type: RateDto, status: 200 })
+  getById(@Param('id') id: string) {
 
   }
 
   @Post('price')
-  checkPrice (@Body('options') options) {
+  @ApiResponse({ type: Number, status: 200 })
+  checkPrice(@Body('options') options) {
 
   }
 }
