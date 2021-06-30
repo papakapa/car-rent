@@ -1,5 +1,5 @@
 import { Controller, Get, Param, Query } from '@nestjs/common';
-import { ApiQuery, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { ApiParam, ApiQuery, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { CarService } from './car.service';
 import { CarDto } from './dto/car.dto';
 import { CarStatisticDto } from './dto/car-stats.dto';
@@ -29,5 +29,19 @@ export class CarController {
   @ApiResponse({ type: CarStatisticDto, status: 200 })
   async getStats(@Query('id') id: string, @Query('start') start: string, @Query('end') end: string) {
     return await this.carService.getStats(id, start, end);
+  }
+
+  @Get('available/:id')
+  @ApiQuery({ name: 'start', type: String })
+  @ApiQuery({ name: 'end', type: String })
+  @ApiQuery({ name: 'rateId', type: String })
+  @ApiQuery({ name: 'id', type: String, required: false })
+  async getAvailable(
+    @Query('id') id: string,
+    @Query('start') start: string,
+    @Query('end') end: string,
+    @Query('rateId') rateId: string,
+  ) {
+    return await this.carService.getAvailable(id, start, end, rateId);
   }
 }
