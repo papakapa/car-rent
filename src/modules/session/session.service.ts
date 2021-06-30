@@ -5,7 +5,7 @@ import { CreateSessionDto } from './dto/create-session.dto';
 import { RateService } from '../rate/rate.service';
 import { DiscountService } from '../discount/discount.service';
 import { SessionDto } from './dto/session.dto';
-import { SessionStatuses } from './enums/session-status.enum';
+import { SessionStatuses } from '../../core/enums/session-status.enum';
 
 @Injectable()
 export class SessionService {

@@ -3,7 +3,7 @@ import { ApiBody, ApiOkResponse, ApiOperation, ApiResponse, ApiTags } from '@nes
 import { CreateSessionDto } from './dto/create-session.dto';
 import { SessionDto } from './dto/session.dto';
 import { SessionService } from './session.service';
-import { ValidationPipe } from './pipes/validation.pipe';
+import { ValidationPipe } from '../../core/pipes/validation.pipe';
 
 @ApiTags('SessionController')
 @Controller('session')

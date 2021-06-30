@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { SessionStatuses } from '../enums/session-status.enum';
+import { SessionStatuses } from '../../../core/enums/session-status.enum';
 
 export class SessionDto {
   @ApiProperty({ required: true, uniqueItems: true })

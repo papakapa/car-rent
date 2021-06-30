@@ -1,6 +1,8 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsUUID } from 'class-validator';
-import { IsNotWeekend, IsValidDate, IsValidRentRange } from '../decorators/date.decorators';
+import { IsValidDate } from '../../../core/decorators/date/valid-date.decorator';
+import { IsNotWeekend } from '../../../core/decorators/date/is-not-weekend.decorator';
+import { IsValidRentRange } from '../../../core/decorators/date/valid-range.decorator';
 
 export class CreateSessionDto {
   @IsValidDate()
