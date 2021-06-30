@@ -1,9 +1,3 @@
-##Swagger
-
-```bash
-http://localhost:3000/api
-```
-
 ## Installation
 
 ```bash
@@ -23,6 +17,12 @@ $ yarn start:dev
 $ yarn start:prod
 ```
 
+## Swagger
+
+```bash
+ http://localhost:3000/api
+```
+
 ### Task
 
 1. Произвести расчёт стоимости аренды автомобиля за период
@@ -36,7 +36,7 @@ $ yarn start:prod
 Начало и конец аренды не может выпадать на выходной день
 (суббота, воскресенье).
 ````
-## Diagram
+## Database model diagram
 
 ![diagram](docs/diagram.png)
 

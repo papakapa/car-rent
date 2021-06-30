@@ -27,9 +27,6 @@ CREATE TABLE IF NOT EXISTS users (
     email VARCHAR(255),
     PRIMARY KEY (id)
 );
-DROP TABLE sessions;
-DROP TYPE status;
-CREATE TYPE status AS ENUM ('rented', 'started', 'finished');
 CREATE TABLE IF NOT EXISTS sessions (
     id uuid PRIMARY KEY,
     startDate DATE,
@@ -39,5 +36,17 @@ CREATE TABLE IF NOT EXISTS sessions (
     userId uuid REFERENCES users,
     discountId uuid REFERENCES discount,
     price INTEGER,
-    status status DEFAULT 'rented'
+    status VARCHAR(255) DEFAULT 'rented'
 );
+INSERT INTO car (brand, model, vin, licensePlate) VALUES ('AUDI','A4','NJNJDAS123123NJ','123-GT-97');
+INSERT INTO car (brand, model, vin, licensePlate) VALUES ('AUDI','Q7','DJNJKDN3NJNKN2N','331-BB-102');
+INSERT INTO car (brand, model, vin, licensePlate) VALUES ('BMW','X5','DJNJKDASDKAKN2N','111-AA-101');
+INSERT INTO car (brand, model, vin, licensePlate) VALUES ('BMW','M5','MM322332DKAKN2N','911-FK-111');
+INSERT INTO car (brand, model, vin, licensePlate) VALUES ('MERCEDES','CLA','MM32484HGKAKN2N','552-MC-111');
+INSERT INTO discount (percent, minPeriod, maxPeriod) VALUES (5, 3, 5);
+INSERT INTO discount (percent, minPeriod, maxPeriod) VALUES (10, 6, 14);
+INSERT INTO discount (percent, minPeriod, maxPeriod) VALUES (15, 15, 30);
+INSERT INTO rate (price, distance) VALUES (270, 200);
+INSERT INTO rate (price, distance) VALUES (330, 350);
+INSERT INTO rate (price, distance) VALUES (390, 500);
+INSERT INTO users (name, login, email) VALUES ('user', 'test', 'test@gmail.com');
