@@ -1,5 +1,6 @@
 import { Client } from 'pg';
 import * as fs from 'fs';
+import * as path from 'path';
 
 const client = new Client({
   host: 'localhost',
@@ -10,7 +11,7 @@ const client = new Client({
 });
 
 const clientInit = async () => {
-  const initSql = fs.readFileSync('D:/work/car-rent/src/db/scripts/init.sql').toString();
+  const initSql = fs.readFileSync(path.resolve(__dirname, './scripts/init.sql')).toString();
 
   await client.connect(err => err && console.log(err));
 
