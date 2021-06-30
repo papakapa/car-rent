@@ -3,11 +3,15 @@ import { Injectable } from '@nestjs/common';
 import { CarRepositoryService } from './car-repository.service';
 import { SessionRepositoryService } from '../session/session-repository.service';
 import { CarStatisticDto } from './dto/car-stats.dto';
+import { RateService } from '../rate/rate.service';
+import { DiscountService } from '../discount/discount.service';
 
 @Injectable()
 export class CarService {
   constructor(
     private readonly carRepository: CarRepositoryService,
+    private readonly rateService: RateService,
+    private readonly discountService: DiscountService,
     private readonly sessionRepository: SessionRepositoryService,
   ) {
   }
@@ -58,4 +62,36 @@ export class CarService {
       percent: (sessionsInterval * 100) / (moment.duration(periodEnd - periodStart).asDays()),
     };
   }
+
+  async getAvailable(id: string, start: string, end: string, rateId: string) {
+    if (id) {
+      return await this.getCarAvailability(id, start, end, rateId);
+    }
+    const resultCars = [];
+    const cars = await this.getAll();
+    for (let i = 0; i < cars.length; i++) {
+      const availability = await this.getCarAvailability(cars[i].id, start, end, rateId);
+      resultCars.push(availability);
+    }
+
+    return resultCars;
+  }
+
+  async getCarAvailability(id: string, start: string, end: string, rateId: string) {
+    const { rows } = await this.carRepository.checkCarSessions(start, end, id);
+    const price = await this.rateService.checkPrice({rate_id: rateId, start_date: start, end_date: end});
+    const discount = await this.discountService.checkIsHaveDiscount(start, end);
+
+    return {
+      carId: id,
+      isAvailable: rows.length === 0,
+      startDate: start,
+      endDate: end,
+      rateId: rateId,
+      price,
+      discount
+    };
+  }
+
+
 }
