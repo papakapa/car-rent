@@ -27,6 +27,9 @@ CREATE TABLE IF NOT EXISTS users (
     email VARCHAR(255),
     PRIMARY KEY (id)
 );
+DROP TABLE sessions;
+DROP TYPE status;
+CREATE TYPE status AS ENUM ('rented', 'started', 'finished');
 CREATE TABLE IF NOT EXISTS sessions (
     id uuid PRIMARY KEY,
     startDate DATE,
