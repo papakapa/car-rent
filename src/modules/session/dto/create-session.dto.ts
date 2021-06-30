@@ -5,24 +5,24 @@ import { IsNotWeekend, IsValidDate, IsValidRentRange } from '../decorators/date.
 export class CreateSessionDto {
   @IsValidDate()
   @IsNotWeekend()
-  @IsValidRentRange('end_date')
+  @IsValidRentRange('endDate')
   @ApiProperty({ required: true })
-  start_date: string;
+  startDate: string;
 
   @IsValidDate()
   @IsNotWeekend()
   @ApiProperty({ required: true })
-  end_date: string;
+  endDate: string;
 
   @IsUUID()
   @ApiProperty({ required: true, uniqueItems: true })
-  car_id: string;
+  carId: string;
 
   @IsUUID()
   @ApiProperty({ required: true, uniqueItems: true })
-  rate_id: string;
+  rateId: string;
 
   @IsUUID()
   @ApiProperty({ required: true, uniqueItems: true })
-  user_id: string;
+  userId: string;
 }

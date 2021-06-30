@@ -30,19 +30,19 @@ export class SessionService {
   }
 
   async createSession(data: CreateSessionDto) {
-    await this.validateCar(data.car_id, data.start_date, data.end_date);
+    await this.validateCar(data.carId, data.startDate, data.endDate);
     const id = uuidv4();
     const price = await this.rateService.checkPrice({
-      rate_id: data.rate_id,
-      end_date: data.end_date,
-      start_date: data.start_date,
+      rateId: data.rateId,
+      endDate: data.endDate,
+      startDate: data.startDate,
     });
-    const discount_id = await this.discountService.checkIsHaveDiscount(data.start_date, data.end_date);
+    const discountId = await this.discountService.checkIsHaveDiscount(data.startDate, data.endDate);
     const session: SessionDto = {
       ...data,
       id,
       price,
-      discount_id: discount_id ? discount_id : null,
+      discountId,
       status: SessionStatuses.RENTED
     };
     await this.sessionRepository.createSession(session);

@@ -17,7 +17,8 @@ export class CarRepositoryService {
 
   async checkCarSessions(start: string, end: string, carId: string) {
     const query = {
-      text: `SELECT * FROM sessions WHERE car_id = $1 AND (start_date::date >= $2 AND end_date::date <= $3) AND (end_date::date + integer '3') >= $2`,
+      text: `SELECT * FROM sessions 
+        WHERE carId = $1 AND (startDate::date >= $2 AND endDate::date <= $3) AND (endDate::date + integer '3') >= $2`,
       values: [ carId, start, end ],
     };
 

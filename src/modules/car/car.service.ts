@@ -49,8 +49,8 @@ export class CarService {
       return { carId: id, percent: 0 };
     }
     const sessionsInterval = rows.reduce((acc, cur) => {
-      const parsedStart = moment(cur.start_date).valueOf();
-      const parsedEnd = moment(cur.end_date).valueOf();
+      const parsedStart = moment(cur.startdate).valueOf();
+      const parsedEnd = moment(cur.enddate).valueOf();
 
       return acc + moment.duration(parsedEnd - parsedStart).asDays();
     }, 0);
@@ -79,7 +79,7 @@ export class CarService {
 
   async getCarAvailability(id: string, start: string, end: string, rateId: string) {
     const { rows } = await this.carRepository.checkCarSessions(start, end, id);
-    const price = await this.rateService.checkPrice({rate_id: rateId, start_date: start, end_date: end});
+    const price = await this.rateService.checkPrice({rateId: rateId, startDate: start, endDate: end});
     const discount = await this.discountService.checkIsHaveDiscount(start, end);
 
     return {
@@ -92,6 +92,4 @@ export class CarService {
       discount
     };
   }
-
-
 }

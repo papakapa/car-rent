@@ -18,15 +18,15 @@ export class SessionRepositoryService {
 
   async createSession(session: SessionDto) {
     const query = {
-      text: `INSERT INTO sessions VALUES($1,$2,$3,$4,$5,$6,$7,$8, $9)`,
+      text: `INSERT INTO sessions VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9)`,
       values: [
         session.id,
-        session.start_date,
-        session.end_date,
-        session.car_id,
-        session.rate_id,
-        session.user_id,
-        session.discount_id,
+        session.startDate,
+        session.endDate,
+        session.carId,
+        session.rateId,
+        session.userId,
+        session.discountId,
         session.price,
         session.status,
       ],
@@ -36,7 +36,8 @@ export class SessionRepositoryService {
 
   async checkCarSessions(start: string, end: string, carId: string) {
     const query = {
-      text: `SELECT * FROM sessions WHERE car_id = $1 AND (start_date::date >= $2 AND end_date::date <= $3) OR (end_date::date + integer '3') >= $2`,
+      text: `SELECT * FROM sessions 
+        WHERE carId = $1 AND ((startDate::date >= $2 AND endDate::date <= $3) OR (endDate::date + integer '3') >= $2)`,
       values: [ carId, start, end ],
     };
 
@@ -45,7 +46,7 @@ export class SessionRepositoryService {
 
   async searchCarSession(id: string, start: string, end: string) {
     const query = {
-      text: `SELECT * FROM sessions WHERE car_id = $1 AND start_date::date >= $2 AND end_date::date <= $3`,
+      text: `SELECT * FROM sessions WHERE carId = $1 AND startDate::date >= $2 AND endDate::date <= $3`,
       values: [ id, start, end ],
     };
 

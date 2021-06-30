@@ -3,8 +3,6 @@ import { CarController } from './car.controller';
 import { CarRepositoryService } from './car-repository.service';
 import { CarService } from './car.service';
 import { SessionRepositoryService } from '../session/session-repository.service';
-import { RateService } from '../rate/rate.service';
-import { DiscountService } from '../discount/discount.service';
 import { RateModule } from '../rate/rate.module';
 import { DiscountModule } from '../discount/discount.module';
 

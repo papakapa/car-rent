@@ -8,8 +8,8 @@ export class DiscountDto {
   percent: number;
 
   @ApiProperty({ required: true })
-  min_period: number;
+  minPeriod: number;
 
   @ApiProperty({ required: true })
-  max_period: number;
+  maxPeriod: number;
 }
