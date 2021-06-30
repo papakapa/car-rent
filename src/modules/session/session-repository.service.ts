@@ -34,29 +34,20 @@ export class SessionRepositoryService {
     return client.query(query);
   }
 
+  async update(sessionId, status) {
+    const query = {
+      text: `UPDATE sessions SET status = $1 WHERE id = $2`,
+      values: [ status, sessionId ],
+    };
+
+    return client.query(query);
+  }
+
   async checkCarSessions(start: string, end: string, carId: string) {
     const query = {
       text: `SELECT * FROM sessions 
         WHERE carId = $1 AND ((startDate::date >= $2 AND endDate::date <= $3) OR (endDate::date + integer '3') >= $2)`,
       values: [ carId, start, end ],
-    };
-
-    return client.query(query);
-  }
-
-  async searchCarSession(id: string, start: string, end: string) {
-    const query = {
-      text: `SELECT * FROM sessions WHERE carId = $1 AND startDate::date >= $2 AND endDate::date <= $3`,
-      values: [ id, start, end ],
-    };
-
-    return client.query(query);
-  }
-
-  async update(sessionId, status) {
-    const query = {
-      text: `UPDATE sessions SET status = $1 WHERE id = $2`,
-      values: [ status, sessionId ],
     };
 
     return client.query(query);

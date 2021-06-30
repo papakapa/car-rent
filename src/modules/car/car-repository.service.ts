@@ -24,4 +24,13 @@ export class CarRepositoryService {
 
     return client.query(query);
   }
+
+  async searchCarSession(id: string, start: string, end: string) {
+    const query = {
+      text: `SELECT * FROM sessions WHERE carId = $1 AND startDate::date >= $2 AND endDate::date <= $3`,
+      values: [ id, start, end ],
+    };
+
+    return client.query(query);
+  }
 }
