@@ -54,7 +54,7 @@ export class SessionService {
     const {rows} = await this.sessionRepository.checkCarSessions(start, end, carId);
 
     if (rows.length) {
-      throw new BadRequestException('Car rented');
+      throw new BadRequestException('Creation failed. Car rented or not yet three days have passed');
     }
   }
 

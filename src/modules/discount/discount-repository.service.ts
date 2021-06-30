@@ -24,5 +24,4 @@ export class DiscountRepositoryService {
 
     return client.query(query);
   }
-
 }
