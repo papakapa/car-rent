@@ -42,7 +42,7 @@ export function IsNotWeekend(validationOptions?: ValidationOptions) {
 export function IsValidRentRange(property: string, validationOptions?: ValidationOptions) {
   return function (object: Object, propertyName: string) {
     registerDecorator({
-      name: 'isLongerThan',
+      name: 'isValidRentRange',
       target: object.constructor,
       propertyName: propertyName,
       constraints: [property],

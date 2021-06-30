@@ -52,21 +52,21 @@ export class SessionService {
 
   async validateCar(carId: string, start: string, end: string) {
     const {rows} = await this.sessionRepository.checkCarSessions(start, end, carId);
-    console.log(rows);
+
     if (rows.length) {
       throw new BadRequestException('Car rented');
     }
   }
 
   async startSession(sessionId: string) {
-    const { rows } = await this.sessionRepository.update(sessionId, SessionStatuses.STARTED);
-    console.log(rows);
-    return 'heh';
+    await this.sessionRepository.update(sessionId, SessionStatuses.STARTED);
+
+    return this.getById(sessionId);
   }
 
   async endSession(sessionId: string) {
-    const { rows } = await this.sessionRepository.update(sessionId, SessionStatuses.FINISHED);
-    console.log(rows);
-    return 'heh';
+    await this.sessionRepository.update(sessionId, SessionStatuses.FINISHED);
+
+    return this.getById(sessionId);
   }
 }
