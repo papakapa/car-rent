@@ -1,7 +1,8 @@
 import { Controller, Get, Param, Query } from '@nestjs/common';
 import { ApiQuery, ApiResponse, ApiTags } from '@nestjs/swagger';
-import { CarDto } from './dto/car.dto';
 import { CarService } from './car.service';
+import { CarDto } from './dto/car.dto';
+import { CarStatisticDto } from './dto/car-stats.dto';
 
 @ApiTags('CarController')
 @Controller('car')
@@ -25,6 +26,7 @@ export class CarController {
   @ApiQuery({ name: 'start', type: String })
   @ApiQuery({ name: 'end', type: String })
   @ApiQuery({ name: 'id', type: String, required: false })
+  @ApiResponse({ type: CarStatisticDto, status: 200 })
   async getStats(@Query('id') id: string, @Query('start') start: string, @Query('end') end: string) {
     return await this.carService.getStats(id, start, end);
   }
