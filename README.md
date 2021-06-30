@@ -38,6 +38,6 @@ $ yarn start:prod
 ````
 ## Database model diagram
 
-![diagram](docs/diagram.png)
+![diagram](docs/diagram.PNG)
 
 
