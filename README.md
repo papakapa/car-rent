@@ -4,6 +4,14 @@
 $ yarn 
 ```
 
+## Prerequisites
+
+Необходимо установить PostgreSQL9.
+
+Создать в ней пользователя me, с паролем 1111.
+
+Создать базу данных car.
+
 ## Running the app
 
 ```bash
@@ -39,5 +47,3 @@ $ yarn start:prod
 ## Database model diagram
 
 ![diagram](docs/diagram.PNG)
-
-
