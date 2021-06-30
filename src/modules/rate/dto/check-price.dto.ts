@@ -2,11 +2,11 @@ import { ApiProperty } from '@nestjs/swagger';
 
 export class CheckPriceDto {
   @ApiProperty({ required: true })
-  start_date: string;
+  startDate: string;
 
   @ApiProperty({ required: true })
-  end_date: string;
+  endDate: string;
 
   @ApiProperty({ required: true })
-  rate_id: string;
+  rateId: string;
 }

@@ -1,27 +1,27 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { SessionStatuses } from '../enums/session-status.enum';
+import { SessionStatuses } from '../../../core/enums/session-status.enum';
 
 export class SessionDto {
   @ApiProperty({ required: true, uniqueItems: true })
   id: string;
 
   @ApiProperty({ required: true })
-  start_date: string;
+  startDate: string;
 
   @ApiProperty({ required: true })
-  end_date: string;
+  endDate: string;
 
   @ApiProperty({ required: true, uniqueItems: true })
-  car_id: string;
+  carId: string;
 
   @ApiProperty({ required: true, uniqueItems: true })
-  rate_id: string;
+  rateId: string;
 
   @ApiProperty({ required: true, uniqueItems: true })
-  discount_id: string;
+  discountId: string;
 
   @ApiProperty({ required: true, uniqueItems: true })
-  user_id: string;
+  userId: string;
 
   @ApiProperty({ required: true })
   price: number;

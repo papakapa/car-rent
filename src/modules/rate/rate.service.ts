@@ -22,10 +22,10 @@ export class RateService {
   }
 
   async checkPrice(data: CheckPriceDto) {
-    const startDate = moment(data.start_date, 'YYYY-MM-DD').valueOf();
-    const endDate = moment(data.end_date, 'YYYY-MM-DD').valueOf();
+    const startDate = moment(data.startDate, 'YYYY-MM-DD').valueOf();
+    const endDate = moment(data.endDate, 'YYYY-MM-DD').valueOf();
     const interval = moment.duration(endDate - startDate);
-    const rate = await this.getById(data.rate_id);
+    const rate = await this.getById(data.rateId);
 
     return rate.price * interval.asDays();
   }

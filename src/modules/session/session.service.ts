@@ -5,7 +5,7 @@ import { CreateSessionDto } from './dto/create-session.dto';
 import { RateService } from '../rate/rate.service';
 import { DiscountService } from '../discount/discount.service';
 import { SessionDto } from './dto/session.dto';
-import { SessionStatuses } from './enums/session-status.enum';
+import { SessionStatuses } from '../../core/enums/session-status.enum';
 
 @Injectable()
 export class SessionService {
@@ -30,19 +30,19 @@ export class SessionService {
   }
 
   async createSession(data: CreateSessionDto) {
-    await this.validateCar(data.car_id, data.start_date, data.end_date);
+    await this.validateCar(data.carId, data.startDate, data.endDate);
     const id = uuidv4();
     const price = await this.rateService.checkPrice({
-      rate_id: data.rate_id,
-      end_date: data.end_date,
-      start_date: data.start_date,
+      rateId: data.rateId,
+      endDate: data.endDate,
+      startDate: data.startDate,
     });
-    const discount_id = await this.discountService.checkIsHaveDiscount(data.start_date, data.end_date);
+    const discountId = await this.discountService.checkIsHaveDiscount(data.startDate, data.endDate);
     const session: SessionDto = {
       ...data,
       id,
       price,
-      discount_id: discount_id ? discount_id : null,
+      discountId,
       status: SessionStatuses.RENTED
     };
     await this.sessionRepository.createSession(session);
@@ -54,7 +54,7 @@ export class SessionService {
     const {rows} = await this.sessionRepository.checkCarSessions(start, end, carId);
 
     if (rows.length) {
-      throw new BadRequestException('Car rented');
+      throw new BadRequestException('Creation failed. Car rented or not yet three days have passed');
     }
   }
 

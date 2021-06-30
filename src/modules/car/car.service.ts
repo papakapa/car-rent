@@ -1,10 +1,10 @@
 import * as moment from 'moment';
 import { Injectable } from '@nestjs/common';
 import { CarRepositoryService } from './car-repository.service';
-import { SessionRepositoryService } from '../session/session-repository.service';
 import { CarStatisticDto } from './dto/car-stats.dto';
 import { RateService } from '../rate/rate.service';
 import { DiscountService } from '../discount/discount.service';
+import { CarAvailabilityDto } from './dto/car-availability.dto';
 
 @Injectable()
 export class CarService {
@@ -12,7 +12,6 @@ export class CarService {
     private readonly carRepository: CarRepositoryService,
     private readonly rateService: RateService,
     private readonly discountService: DiscountService,
-    private readonly sessionRepository: SessionRepositoryService,
   ) {
   }
 
@@ -44,13 +43,13 @@ export class CarService {
   }
 
   async getCarStats(id: string, start: string, end: string): Promise<CarStatisticDto> {
-    const { rows } = await this.sessionRepository.searchCarSession(id, start, end);
+    const { rows } = await this.carRepository.searchCarSession(id, start, end);
     if (!rows.length) {
       return { carId: id, percent: 0 };
     }
     const sessionsInterval = rows.reduce((acc, cur) => {
-      const parsedStart = moment(cur.start_date).valueOf();
-      const parsedEnd = moment(cur.end_date).valueOf();
+      const parsedStart = moment(cur.startdate).valueOf();
+      const parsedEnd = moment(cur.enddate).valueOf();
 
       return acc + moment.duration(parsedEnd - parsedStart).asDays();
     }, 0);
@@ -63,7 +62,7 @@ export class CarService {
     };
   }
 
-  async getAvailable(id: string, start: string, end: string, rateId: string) {
+  async getAvailable(id: string, start: string, end: string, rateId: string): Promise<CarAvailabilityDto | CarAvailabilityDto[]> {
     if (id) {
       return await this.getCarAvailability(id, start, end, rateId);
     }
@@ -77,10 +76,10 @@ export class CarService {
     return resultCars;
   }
 
-  async getCarAvailability(id: string, start: string, end: string, rateId: string) {
+  async getCarAvailability(id: string, start: string, end: string, rateId: string): Promise<CarAvailabilityDto> {
     const { rows } = await this.carRepository.checkCarSessions(start, end, id);
-    const price = await this.rateService.checkPrice({rate_id: rateId, start_date: start, end_date: end});
-    const discount = await this.discountService.checkIsHaveDiscount(start, end);
+    const price = await this.rateService.checkPrice({rateId: rateId, startDate: start, endDate: end});
+    const discountId = await this.discountService.checkIsHaveDiscount(start, end);
 
     return {
       carId: id,
@@ -89,9 +88,7 @@ export class CarService {
       endDate: end,
       rateId: rateId,
       price,
-      discount
+      discountId
     };
   }
-
-
 }

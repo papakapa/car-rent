@@ -1,5 +1,5 @@
 import { Controller, Get, Param } from '@nestjs/common';
-import { ApiResponse, ApiTags } from '@nestjs/swagger';
+import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { UserDto } from './dto/user.dto';
 import { UserService } from './user.service';
 
@@ -10,12 +10,14 @@ export class UserController {
   }
 
   @Get('/')
-  @ApiResponse({ type: [UserDto], status: 200 })
+  @ApiOperation({ summary: 'Возвращает всех пользователей' })
+  @ApiResponse({ type: [ UserDto ], status: 200 })
   async getAll() {
     return await this.userService.getAll();
   }
 
   @Get(':id')
+  @ApiOperation({ summary: 'Возвращает пользователя по id' })
   @ApiResponse({ type: UserDto, status: 200 })
   async getById(@Param('id') id: string) {
     return await this.userService.getById(id);

@@ -1,28 +1,30 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsUUID } from 'class-validator';
-import { IsNotWeekend, IsValidDate, IsValidRentRange } from '../decorators/date.decorators';
+import { IsValidDate } from '../../../core/decorators/date/valid-date.decorator';
+import { IsNotWeekend } from '../../../core/decorators/date/is-not-weekend.decorator';
+import { IsValidRentRange } from '../../../core/decorators/date/valid-range.decorator';
 
 export class CreateSessionDto {
   @IsValidDate()
   @IsNotWeekend()
-  @IsValidRentRange('end_date')
+  @IsValidRentRange('endDate')
   @ApiProperty({ required: true })
-  start_date: string;
+  startDate: string;
 
   @IsValidDate()
   @IsNotWeekend()
   @ApiProperty({ required: true })
-  end_date: string;
+  endDate: string;
 
   @IsUUID()
   @ApiProperty({ required: true, uniqueItems: true })
-  car_id: string;
+  carId: string;
 
   @IsUUID()
   @ApiProperty({ required: true, uniqueItems: true })
-  rate_id: string;
+  rateId: string;
 
   @IsUUID()
   @ApiProperty({ required: true, uniqueItems: true })
-  user_id: string;
+  userId: string;
 }

@@ -14,5 +14,5 @@ export class CarDto {
   vin: string;
 
   @ApiProperty({ required: true})
-  gov_number: string;
+  licencePlate: string;
 }

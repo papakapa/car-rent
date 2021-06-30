@@ -18,11 +18,10 @@ export class DiscountRepositoryService {
 
   async findOneByPeriod(period: number) {
     const query = {
-      text: `SELECT id FROM discount WHERE $1 >= min_period AND $1 <= max_period`,
+      text: `SELECT id FROM discount WHERE $1 >= minPeriod AND $1 <= maxPeriod`,
       values: [period]
     };
 
     return client.query(query);
   }
-
 }

@@ -27,6 +27,6 @@ export class DiscountService {
 
     const {rows} = await this.discountRepository.findOneByPeriod(interval);
 
-    return rows.length ? rows[0].id : '';
+    return rows.length ? rows[0].id : null;
   }
 }
